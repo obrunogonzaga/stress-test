@@ -4,7 +4,7 @@ Copyright © 2024 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"fmt"
+	"github.com/obrunogonzaga/stress-test/internal"
 	"github.com/spf13/cobra"
 )
 
@@ -20,7 +20,7 @@ var loadCmd = &cobra.Command{
 	Short: "Perform load testing on a web service",
 	Long:  `Loadtester is a CLI tool that allows you to perform load testing on web services.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("load called")
+		internal.StressTest(url, totalRequests, concurrency)
 	},
 }
 
