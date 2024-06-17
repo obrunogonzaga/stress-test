@@ -1,0 +1,46 @@
+# Ignore the Go binary files
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Go workspace file
+go.work
+go.work.sum
+
+# Dependency directories
+vendor/
+
+# IDE/editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.DS_Store
+*.sublime-project
+*.sublime-workspace
+
+# Output of the 'go build' command
+/build/
+loadtester
+
+# Ignore the go test binary file
+*.test
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Git configuration files
+.gitconfig
+
+# System files
+Thumbs.db
+.DS_Store
+
+# Go module files
+go.sum
