@@ -1,28 +1,26 @@
 /*
 Copyright © 2024 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
 import (
-	"github.com/obrunogonzaga/stress-test/internal/requests/stresstest"
-
+	"fmt"
 	"github.com/spf13/cobra"
 )
 
 var (
-	url 			string
-	totalRequests 	int
-	concurrency 	int
+	url           string
+	totalRequests int
+	concurrency   int
 )
 
 // loadCmd represents the load command
 var loadCmd = &cobra.Command{
 	Use:   "load",
 	Short: "Perform load testing on a web service",
-	Long: `Loadtester is a CLI tool that allows you to perform load testing on web services.`,
+	Long:  `Loadtester is a CLI tool that allows you to perform load testing on web services.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		stresstest.PerformStressTest(url, totalRequests, concurrency)
+		fmt.Println("load called")
 	},
 }
 
