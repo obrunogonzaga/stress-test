@@ -1,0 +1,6 @@
+version: '3.8'
+
+services:
+  loadtester:
+    build: .
+    command: ["load", "--url=http://google.com", "--requests=1000", "--concurrency=10"]

@@ -62,10 +62,12 @@ func StressTest(url string, totalRequests int, concurrency int) {
 	fmt.Printf("Total execution time: %v\n", totalTime)
 	fmt.Printf("Total number of requests performed: %d\n", totalRequests)
 	fmt.Printf("Number of requests with HTTP status 200: %d\n", totalStatus200)
-	fmt.Printf("Distribution of other HTTP status codes:\n")
+	fmt.Printf("Distribution of other HTTP status codes:%d\n", len(statusCodes))
+	mu.Lock()
 	for code, count := range statusCodes {
 		if code != http.StatusOK {
 			fmt.Printf("Status %d: %d requests\n", code, count)
 		}
 	}
+	mu.Unlock()
 }
