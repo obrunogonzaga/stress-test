@@ -12,6 +12,7 @@ func StressTest(url string, totalRequests int, concurrency int) {
 	var mu sync.Mutex
 
 	statusCodes := make(map[int]int)
+	errorCount := 0
 	startTime := time.Now()
 
 	requestsPerGoroutine := totalRequests / concurrency
@@ -26,6 +27,9 @@ func StressTest(url string, totalRequests int, concurrency int) {
 				resp, err := client.Get(url)
 				if err != nil {
 					fmt.Printf("Request error: %v\n", err)
+					mu.Lock()
+					errorCount++
+					mu.Unlock()
 					continue
 				}
 				mu.Lock()
@@ -45,6 +49,9 @@ func StressTest(url string, totalRequests int, concurrency int) {
 				resp, err := client.Get(url)
 				if err != nil {
 					fmt.Printf("Request error: %v\n", err)
+					mu.Lock()
+					errorCount++
+					mu.Unlock()
 					continue
 				}
 				mu.Lock()
@@ -62,12 +69,16 @@ func StressTest(url string, totalRequests int, concurrency int) {
 	fmt.Printf("Total execution time: %v\n", totalTime)
 	fmt.Printf("Total number of requests performed: %d\n", totalRequests)
 	fmt.Printf("Number of requests with HTTP status 200: %d\n", totalStatus200)
-	fmt.Printf("Distribution of other HTTP status codes:%d\n", len(statusCodes))
+
+	non200StatusCount := 0
 	mu.Lock()
 	for code, count := range statusCodes {
 		if code != http.StatusOK {
 			fmt.Printf("Status %d: %d requests\n", code, count)
+			non200StatusCount++
 		}
 	}
 	mu.Unlock()
+	fmt.Printf("Distribution of other HTTP status codes: %d\n", non200StatusCount)
+	fmt.Printf("Number of requests that resulted in an error: %d\n", errorCount)
 }
